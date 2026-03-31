@@ -1,0 +1,14 @@
+{
+  "name": "copilot-cli-subagents-plugin",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "GitHub Copilot CLI plugin for model-selectable subagent delegation and background job management.",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=18.18.0"
+  },
+  "scripts": {
+    "test": "node --test tests/*.test.mjs"
+  }
+}
