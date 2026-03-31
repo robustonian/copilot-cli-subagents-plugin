@@ -20,7 +20,7 @@ The plugin keeps the UX close to the reference `codex-plugin-cc` repository, but
 
 This repository is a GitHub Copilot CLI port of [`openai/codex-plugin-cc`](https://github.com/openai/codex-plugin-cc), the Apache 2.0 licensed Claude Code plugin published by OpenAI for using Codex from inside Claude Code.
 
-The goal of this port is to preserve the same high-level review/rescue/status workflow while replacing the runtime and plugin packaging with GitHub Copilot CLI-native components. Instead of relying on Claude Code's `/plugin` installation flow and a local `codex` binary, this repository uses `copilot plugin install`, `plugin.json`, `commands/`, custom Copilot agents, and a Node.js companion runtime.
+The goal of this port is to preserve the same high-level review/rescue/status workflow while replacing the runtime and plugin packaging with GitHub Copilot CLI-native components. The original repository is for Claude Code plus Codex; this repository runs entirely inside GitHub Copilot CLI. Instead of relying on Claude Code's `/plugin` installation flow and a local `codex` binary, this repository uses `copilot plugin install`, `plugin.json`, `commands/`, custom Copilot agents, and a Node.js companion runtime.
 
 ## Differences from `codex-plugin-cc`
 
