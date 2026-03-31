@@ -54,7 +54,8 @@ export function renderSetupReport(report) {
     `- git: ${report.git.detail}`,
     `- copilot: ${report.copilot.detail}`,
     `- plugin root: ${report.pluginRoot}`,
-    `- state dir: ${report.stateDir}`
+    `- workspace root: ${report.workspaceRoot}`,
+    `- workspace state dir: ${report.stateDir}`
   ];
 
   if (report.nextSteps.length > 0) {

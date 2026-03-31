@@ -144,6 +144,7 @@ function buildSetupReport(cwd, actionsTaken = []) {
   const node = binaryAvailable("node", ["--version"], { cwd });
   const git = binaryAvailable("git", ["--version"], { cwd });
   const copilot = getCopilotStatus(cwd);
+  const workspaceRoot = resolveWorkspaceRoot(cwd);
   const stateDir = resolveStateDir(cwd);
   const nextSteps = [];
   if (!copilot.available) {
@@ -151,7 +152,7 @@ function buildSetupReport(cwd, actionsTaken = []) {
   }
   if (copilot.available) {
     nextSteps.push("Run `/subagents:review --background` for a first background review.");
-    nextSteps.push("Run `/subagents:rescue --model gpt-5.4-mini investigate the failing test` to delegate a task.");
+    nextSteps.push("Run `/subagents:rescue --model gpt-5.4 --effort xhigh investigate the failing test` to delegate a task.");
   }
 
   return {
@@ -160,6 +161,7 @@ function buildSetupReport(cwd, actionsTaken = []) {
     git,
     copilot,
     pluginRoot: REPO_ROOT,
+    workspaceRoot,
     stateDir,
     actionsTaken,
     nextSteps
