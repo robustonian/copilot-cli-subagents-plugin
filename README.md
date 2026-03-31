@@ -47,7 +47,7 @@ copilot plugin install /absolute/path/to/copilot-cli-subagents-plugin
 ### Install from GitHub
 
 ```bash
-copilot plugin install OWNER/REPO
+copilot plugin install robustonian/copilot-cli-subagents-plugin
 ```
 
 After installing a local checkout, reinstall the plugin after every file change so Copilot picks up the updated plugin contents.
