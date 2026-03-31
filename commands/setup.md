@@ -12,6 +12,8 @@ Rules:
 - Do not inspect the repository, explain the output, or do follow-up work of your own.
 - Treat any text typed after `/subagents:setup` as raw arguments for the companion script.
 
+Supported flags: `--json`, `--enable-review-gate`, `--disable-review-gate`.
+
 Run this command once. Replace `<raw arguments>` with the text the user typed after `/subagents:setup`, or omit it entirely when the user supplied nothing:
 
 ```bash

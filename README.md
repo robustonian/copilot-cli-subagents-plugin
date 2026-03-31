@@ -58,9 +58,11 @@ After installing a local checkout, reinstall the plugin after every file change 
 
 ```text
 /subagents:setup
+/subagents:setup --enable-review-gate
+/subagents:setup --disable-review-gate
 ```
 
-This checks whether `node`, `git`, and `copilot` are available, and shows the plugin's state directory.
+This checks whether `node`, `git`, and `copilot` are available, shows the plugin's state directory, and reports the current review-gate setting. The `--enable-review-gate` and `--disable-review-gate` flags update that setting and echo the action in the text output.
 
 ### Review the current work
 

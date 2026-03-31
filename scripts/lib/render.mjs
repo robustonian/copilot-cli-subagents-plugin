@@ -55,8 +55,16 @@ export function renderSetupReport(report) {
     `- copilot: ${report.copilot.detail}`,
     `- plugin root: ${report.pluginRoot}`,
     `- workspace root: ${report.workspaceRoot}`,
-    `- workspace state dir: ${report.stateDir}`
+    `- workspace state dir: ${report.stateDir}`,
+    `- review gate: ${report.config?.reviewGate ? "enabled" : "disabled"}`
   ];
+
+  if (report.actionsTaken?.length > 0) {
+    lines.push("", "Actions taken:");
+    for (const action of report.actionsTaken) {
+      lines.push(`- ${action}`);
+    }
+  }
 
   if (report.nextSteps.length > 0) {
     lines.push("", "Next steps:");

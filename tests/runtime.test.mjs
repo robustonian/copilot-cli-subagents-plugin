@@ -12,6 +12,14 @@ test("setup reports ready with the fake copilot binary", () => {
   assert.match(report.copilot.detail, /1\.0\.13/);
 });
 
+test("setup text output includes review gate status and actions taken", () => {
+  const envState = setupTestEnvironment();
+  const output = runCompanion(["setup", "--enable-review-gate"], { cwd: envState.root, env: envState.env });
+  assert.match(output, /review gate: enabled/);
+  assert.match(output, /Actions taken:/);
+  assert.match(output, /Enabled the review gate flag\./);
+});
+
 test("foreground rescue forwards model and effort to the delegated agent", () => {
   const envState = setupTestEnvironment();
   const repoDir = makeGitRepo();
