@@ -3,6 +3,7 @@ import process from "node:process";
 import { spawn } from "node:child_process";
 
 import { binaryAvailable, runCommand } from "./process.mjs";
+import { PLUGIN_NAME } from "./state.mjs";
 
 export const VALID_REASONING_EFFORTS = new Set(["low", "medium", "high", "xhigh"]);
 
@@ -78,13 +79,30 @@ export function getCopilotStatus(cwd) {
   return binaryAvailable("copilot", ["--version"], { cwd });
 }
 
+function qualifyAgentName(agent) {
+  if (agent == null) {
+    return null;
+  }
+  const normalized = String(agent).trim();
+  if (!normalized) {
+    return null;
+  }
+  if (normalized.includes(":")) {
+    return normalized;
+  }
+  return `${PLUGIN_NAME}:${normalized}`;
+}
+
 export function buildCopilotArgs(job) {
   const args = [];
 
   if (job.resumeSessionId) {
     args.push("--resume", job.resumeSessionId);
-  } else if (job.agent) {
-    args.push("--agent", job.agent);
+  } else {
+    const agentName = qualifyAgentName(job.agent);
+    if (agentName) {
+      args.push("--agent", agentName);
+    }
   }
 
   if (job.model) {

@@ -22,7 +22,7 @@ test("foreground rescue forwards model and effort to the delegated agent", () =>
   assert.match(output, /Rescue \(gpt-5\.4-mini, effort=high\): fix the bug/);
 
   const events = readLogEvents(envState.logFile);
-  assert.equal(events.at(-1).agent, "subagents-rescue");
+  assert.equal(events.at(-1).agent, "subagents:subagents-rescue");
   assert.equal(events.at(-1).model, "gpt-5.4-mini");
   assert.equal(events.at(-1).effort, "high");
 });
@@ -35,7 +35,7 @@ test("review uses the dedicated review agent", () => {
   assert.match(output, /Review \(gpt-5\.4-mini\): You are performing a review of local repository changes\./);
 
   const events = readLogEvents(envState.logFile);
-  assert.equal(events.at(-1).agent, "subagents-review");
+  assert.equal(events.at(-1).agent, "subagents:subagents-review");
 });
 
 test("background rescue can be waited on and its stored result can be fetched", async () => {
