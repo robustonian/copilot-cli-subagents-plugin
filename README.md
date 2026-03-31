@@ -1,5 +1,9 @@
 # Subagents plugin for GitHub Copilot CLI
 
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](./LICENSE)
+[![Node.js >=18.18.0](https://img.shields.io/badge/Node.js-%3E%3D18.18.0-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Ported from openai/codex-plugin-cc](https://img.shields.io/badge/Ported%20from-openai%2Fcodex--plugin--cc-412991)](https://github.com/openai/codex-plugin-cc)
+
 `subagents` is a GitHub Copilot CLI plugin that adds a Codex-style slash-command surface for delegating work to model-selectable subagents.
 
 The plugin keeps the UX close to the reference `codex-plugin-cc` repository, but it is implemented natively for GitHub Copilot CLI plugins:
@@ -11,6 +15,21 @@ The plugin keeps the UX close to the reference `codex-plugin-cc` repository, but
 - `/subagents:result`
 - `/subagents:cancel`
 - `/subagents:setup`
+
+## Based on `openai/codex-plugin-cc`
+
+This repository is a GitHub Copilot CLI port of [`openai/codex-plugin-cc`](https://github.com/openai/codex-plugin-cc), the Apache 2.0 licensed Claude Code plugin published by OpenAI for using Codex from inside Claude Code.
+
+The goal of this port is to preserve the same high-level review/rescue/status workflow while replacing the runtime and plugin packaging with GitHub Copilot CLI-native components. Instead of relying on Claude Code's `/plugin` installation flow and a local `codex` binary, this repository uses `copilot plugin install`, `plugin.json`, `commands/`, custom Copilot agents, and a Node.js companion runtime.
+
+## Differences from `codex-plugin-cc`
+
+- Uses the GitHub Copilot CLI plugin system (`plugin.json`, `commands/`, and Copilot custom agents) instead of Claude Code's `/plugin` command and `.claude-plugin/` layout.
+- Does not require an OpenAI account, OpenAI API credentials, or the `codex` binary.
+- Exposes `--model` and `--effort` directly on delegated commands instead of depending on upstream Codex-side configuration defaults.
+- Adds `--scope <auto|working-tree|branch>` for review commands, plus `--base <ref>` when you want to force a review baseline.
+- Stores plugin state under `~/.copilot/plugins/subagents/`.
+- Launches delegated work through nested `copilot -p ... --agent ...` sessions, managed by `scripts/copilot-companion.mjs` and `scripts/job-runner.mjs`.
 
 ## How it works
 
@@ -33,8 +52,10 @@ This makes it possible to:
 ## Requirements
 
 - GitHub Copilot CLI `1.0.13` or newer
+- An active GitHub Copilot subscription. GitHub's documentation says Copilot CLI is available with all Copilot plans. If your Copilot access is managed by an organization or enterprise, the Copilot CLI policy must also be enabled there.
 - Node.js `18.18.0` or newer
 - Git
+- No OpenAI account and no `codex` binary are required
 
 ## Install
 
@@ -51,6 +72,8 @@ copilot plugin install robustonian/copilot-cli-subagents-plugin
 ```
 
 After installing a local checkout, reinstall the plugin after every file change so Copilot picks up the updated plugin contents.
+
+If you installed from GitHub and want to refresh to the latest published version, rerun the same `copilot plugin install robustonian/copilot-cli-subagents-plugin` command.
 
 ## Usage
 
@@ -124,6 +147,8 @@ This checks whether `node`, `git`, and `copilot` are available, shows the plugin
 - Background runs are executed by a detached `scripts/job-runner.mjs` process.
 - The nested Copilot session is launched with a constrained tool set for reviews and a broader writable tool set for rescue tasks.
 - On first use, Copilot CLI may still ask for permission before running the command-layer shell wrapper.
+- Delegated work is executed through nested Copilot CLI sessions, so Copilot usage and accounting follow GitHub Copilot CLI behavior for those child sessions as well.
+- See [`NOTICE`](./NOTICE) for upstream attribution and modification notice information.
 
 ## Development
 
