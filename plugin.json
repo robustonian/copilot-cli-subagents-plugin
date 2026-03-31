@@ -1,7 +1,7 @@
 {
   "name": "subagents",
   "description": "Model-selectable subagent delegation and background jobs for GitHub Copilot CLI.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": {
     "name": "gosrum"
   },
