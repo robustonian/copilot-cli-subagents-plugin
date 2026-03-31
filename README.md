@@ -67,21 +67,21 @@ This checks whether `node`, `git`, and `copilot` are available, and shows the pl
 ```text
 /subagents:review
 /subagents:review --background
-/subagents:review --model gpt-5.4-mini --scope working-tree
+/subagents:review --model gpt-5.4 --effort xhigh --scope working-tree
 ```
 
 ### Run an adversarial review
 
 ```text
 /subagents:adversarial-review challenge the rollback and retry strategy
-/subagents:adversarial-review --background --model gpt-5.4-mini focus on race conditions
+/subagents:adversarial-review --background --model gpt-5.4 --effort xhigh focus on race conditions
 ```
 
 ### Delegate implementation or debugging work
 
 ```text
 /subagents:rescue investigate why CI started failing
-/subagents:rescue --model gpt-5.4-mini fix the flaky integration test
+/subagents:rescue --model gpt-5.4 --effort xhigh fix the flaky integration test
 /subagents:rescue --background refactor the retry logic safely
 /subagents:rescue --resume apply the next fix from the previous run
 ```
